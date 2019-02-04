@@ -1,0 +1,113 @@
+[
+  {
+    "id": 1,
+    "name": "Fanik a lui Petrik",
+    "avatar": {
+      "topType": "ShortHairDreads01",
+      "accessoriesType": "Blank",
+      "hairColor": "BrownDark",
+      "facialHairType": "Blank",
+      "facialHairColor": "BrownDark",
+      "clotheType": "ShirtScoopNeck",
+      "clotheColor": "Gray01",
+      "eyeType": "Surprised",
+      "eyebrowType": "UpDown",
+      "mouthType": "Serious",
+      "skinColor": "Light"
+    },
+    "age": 28,
+    "sex": "M",
+    "applicationStatus": "",
+    "technicalSkills": "JavaScript, React Native, Flutter, Ionic, NativeScript, Xamarin, PhoneGap",
+    "otherSkills": "loves JavaScript",
+    "salaryExpectations": "import java.math.BigInteger"
+  },
+  {
+    "id": 2,
+    "name": "Fiuka TL",
+    "avatar": {
+      "topType": "Turban",
+      "accessoriesType": "Sunglasses",
+      "hairColor": "Blue03",
+      "facialHairType": "BeardLight",
+      "facialHairColor": "BrownDark",
+      "clotheType": "BlazerShirt",
+      "eyeType": "Cry",
+      "eyebrowType": "Default",
+      "mouthType": "Default",
+      "skinColor": "Light"
+    },
+    "age": 11,
+    "sex": "M",
+    "applicationStatus": "",
+    "technicalSkills": "writes an entire app in one line of code",
+    "otherSkills": "mentors a lot",
+    "salaryExpectations": "0, because I'm very passionate"
+  },
+  {
+    "id": 3,
+    "name": "Nuca Bok",
+    "avatar": {
+      "topType": "ShortHairSides",
+      "accessoriesType": "Prescription02",
+      "facialHairType": "BeardMedium",
+      "facialHairColor": "BrownDark",
+      "clotheType": "CollarSweater",
+      "clotheColor": "Blue03",
+      "eyeType": "Squint",
+      "eyebrowType": "RaisedExcitedNatural",
+      "mouthType": "Default",
+      "skinColor": "Tanned"
+    },
+    "age": 31,
+    "sex": "M",
+    "applicationStatus": "",
+    "technicalSkills": "Android, Kotlin",
+    "otherSkills": "drinks a lot",
+    "salaryExpectations": 2600
+  },
+  {
+    "id": 4,
+    "name": "Hefty-time",
+    "avatar": {
+      "topType": "WinterHat1",
+      "accessoriesType": "Blank",
+      "hatColor": "PastelGreen",
+      "facialHairType": "Blank",
+      "clotheType": "Hoodie",
+      "clotheColor": "PastelGreen",
+      "eyeType": "Default",
+      "eyebrowType": "DefaultNatural",
+      "mouthType": "Eating",
+      "skinColor": "Pale"
+    },
+    "age": 27,
+    "sex": "M",
+    "applicationStatus": "",
+    "technicalSkills": "Objective C, Swift",
+    "otherSkills": "drives a lot",
+    "salaryExpectations": 2300
+  },
+  {
+    "id": 5,
+    "name": "DD",
+    "avatar": {
+      "topType": "LongHairStraight2",
+      "accessoriesType": "Blank",
+      "hairColor": "BrownDark",
+      "facialHairType": "Blank",
+      "clotheType": "ShirtCrewNeck",
+      "clotheColor": "Pink",
+      "eyeType": "Default",
+      "eyebrowType": "RaisedExcitedNatural",
+      "mouthType": "Disbelief",
+      "skinColor": "Pale"
+    },
+    "age": 31,
+    "sex": "F",
+    "applicationStatus": "",
+    "technicalSkills": "React Native, Git",
+    "otherSkills": "runs a lot",
+    "salaryExpectations": 9900
+  }
+]
