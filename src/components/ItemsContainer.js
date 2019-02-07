@@ -6,5 +6,5 @@ export default function ItemsContainer() {
         <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <ItemsList/>
         </div>
-    );
+    )
 }

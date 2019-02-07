@@ -1,6 +1,28 @@
 [
   {
-    "id": 1,
+    "id": 4,
+    "name": "Hefty-time",
+    "avatar": {
+      "topType": "WinterHat1",
+      "accessoriesType": "Blank",
+      "hatColor": "PastelGreen",
+      "facialHairType": "Blank",
+      "clotheType": "Hoodie",
+      "clotheColor": "PastelGreen",
+      "eyeType": "Default",
+      "eyebrowType": "DefaultNatural",
+      "mouthType": "Eating",
+      "skinColor": "Pale"
+    },
+    "age": 27,
+    "sex": "M",
+    "applicationStatus": "",
+    "technicalSkills": "Objective C, Swift",
+    "otherSkills": "drives a lot",
+    "salaryExpectations": 1050
+  },
+  {
+    "id": 0,
     "name": "Fanik a lui Petrik",
     "avatar": {
       "topType": "ShortHairDreads01",
@@ -18,9 +40,9 @@
     "age": 28,
     "sex": "M",
     "applicationStatus": "",
-    "technicalSkills": "JavaScript, React Native, Flutter, Ionic, NativeScript, Xamarin, PhoneGap",
-    "otherSkills": "loves JavaScript",
-    "salaryExpectations": "import java.math.BigInteger"
+    "technicalSkills": "React Native, Flutter, Ionic, NativeScript, Xamarin, PhoneGap",
+    "otherSkills": "Loves Hybrid Mobile technologies",
+    "salaryExpectations": 200
   },
   {
     "id": 2,
@@ -64,29 +86,7 @@
     "applicationStatus": "",
     "technicalSkills": "Android, Kotlin",
     "otherSkills": "drinks a lot",
-    "salaryExpectations": 2600
-  },
-  {
-    "id": 4,
-    "name": "Hefty-time",
-    "avatar": {
-      "topType": "WinterHat1",
-      "accessoriesType": "Blank",
-      "hatColor": "PastelGreen",
-      "facialHairType": "Blank",
-      "clotheType": "Hoodie",
-      "clotheColor": "PastelGreen",
-      "eyeType": "Default",
-      "eyebrowType": "DefaultNatural",
-      "mouthType": "Eating",
-      "skinColor": "Pale"
-    },
-    "age": 27,
-    "sex": "M",
-    "applicationStatus": "",
-    "technicalSkills": "Objective C, Swift",
-    "otherSkills": "drives a lot",
-    "salaryExpectations": 2300
+    "salaryExpectations": 1200
   },
   {
     "id": 5,
@@ -108,6 +108,6 @@
     "applicationStatus": "",
     "technicalSkills": "React Native, Git",
     "otherSkills": "runs a lot",
-    "salaryExpectations": 9900
+    "salaryExpectations": 990
   }
 ]

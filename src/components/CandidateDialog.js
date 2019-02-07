@@ -1,21 +1,27 @@
-import React, {useState, useEffect} from "react";
-import mockApi from "../mock_data/mockApi";
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
-import Avatar from "avataaars";
-import InputLabel from '@material-ui/core/InputLabel';
-import Divider from '@material-ui/core/Divider';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import React, {useState, useEffect} from "react"
+import mockApi from "../mock_data/mockApi"
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import TextField from '@material-ui/core/TextField'
+import CandidateAvatar from './CandidateAvatar'
+import InputLabel from '@material-ui/core/InputLabel'
+import Divider from '@material-ui/core/Divider'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
 
 function CandidateDialog(props) {
-    const { classes } = props;
+    const { classes } = props
 
     const [candidateData, setCandidateData] = useState({})
+
+    //note, while we could only use the above candidateData instead of the below parts of it,
+    //useState can only set a value at a time; thus, we can't setCandidateData only for name,
+    //like we would use setState in classes - though we can do setCandidateData({...candidateData, name})
+    //see the below alternative implementation for name
+
     const [name, setName] = useState("")
     const [age, setAge] = useState("")
     const [techSkills, setTechSkills] = useState("")
@@ -26,17 +32,19 @@ function CandidateDialog(props) {
         mockApi.fetchCandidateById(props.currentCandidateId).then((candidateData) => {
             setCandidateData(candidateData)
 
+            //## setCandidateData({...candidateData, ...candidateData.name})
             setName(candidateData.name)
             setAge(candidateData.age)
             setTechSkills(candidateData.technicalSkills)
             setOtherSkills(candidateData.otherSkills)
             setsalaryExpectations(candidateData.salaryExpectations)
         })
-    }, []);
+    }, [])
 
     const handleChange = name => e => {
         switch (name) {
             case 'name':
+                //## setCandidateData({...candidateData, name: e.target.value})
                 setName(e.target.value)
                 break
             case 'age':
@@ -49,17 +57,14 @@ function CandidateDialog(props) {
                 setOtherSkills(e.target.value)
                 break
             case 'salaryExpectations':
-                setsalaryExpectations(e.target.value)
+                props.currentCandidateId ?
+                    setsalaryExpectations(e.target.value) :
+                    window.manageCustomExp(setsalaryExpectations, salaryExpectations)
                 break
             default:
                 console.log('Wait what?')
         }
     }
-
-    //TODO: saveCandidateNewData schimba app state; de decis daca o sa facem cu useReducer
-    //TODO: de mai sus, si pasam un dispatch prop, sau daca direct de aici schimbam, prolly prima
-    let { topType, accessoriesType, hairColor, facialHairType, facialHairColor, clotheType, clotheColor, eyeType,
-        eyebrowType, mouthType, skinColor } = candidateData.avatar || ""
 
     let ageMenuItems = []
     for (let i=11; i<80; i++) {
@@ -69,28 +74,16 @@ function CandidateDialog(props) {
     return (
         <div style={{color: "#000", width: "100%", height: "100%"}}>
             {candidateData.avatar?
-            <Avatar
-                style={{height: 200, width: 200}}
-                avatarStyle='Circle'
-                topType={topType}
-                accessoriesType={accessoriesType}
-                hairColor={hairColor}
-                facialHairType={facialHairType}
-                facialHairColor={facialHairColor || "Default"}
-                clotheType={clotheType}
-                clotheColor={clotheColor}
-                eyeType={eyeType}
-                eyebrowType={eyebrowType}
-                mouthType={mouthType}
-                skinColor={skinColor}
-            /> :
-            <CircularProgress className={classes.progress} />
+                <CandidateAvatar data={{...candidateData.avatar, height: 200, width: 200}}/>
+            :
+                <CircularProgress className={classes.progress} />
             }
             <form className={classes.container} noValidate autoComplete="off">
                 <TextField
                     id="outlined-name"
                     label="Name"
                     className={classes.textField}
+                    //## value={candidateData.name || ""}
                     value={name}
                     onChange={handleChange('name')}
                     margin="normal"
@@ -140,15 +133,16 @@ function CandidateDialog(props) {
                     <Button variant="contained" className={classes.button}
                             onClick={props.goBack}>Cancel</Button>
                     <Button variant="contained" color="primary" className={classes.button}
-                            onClick={() => {props.updateCandidateData({data: {
+                            onClick={() => {props.updateCandidateData({
                                     id: props.currentCandidateId,
                                     name,
+                                    //## name: candidateData.name,
                                     age,
                                     technicalSkills: techSkills,
                                     otherSkills,
                                     salaryExpectations
-                                }
-                            })}}>Save</Button>
+                                })}}>Save
+                    </Button>
                 </div>
             </form>
         </div>
@@ -179,12 +173,12 @@ const styles = theme => ({
     },
     formControl: {
         margin: theme.spacing.unit,
-        width: 300,
+        width: 300
     },
     progress: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing.unit * 2
     }
-});
+})
 
 export default withStyles(styles)(CandidateDialog);
 

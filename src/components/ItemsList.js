@@ -1,15 +1,14 @@
-import React, { useEffect, useReducer } from "react";
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import Avatar from 'avataaars'
-import CandidateDialog from "./CandidateDialog";
-import mockApi from '../mock_data/mockApi';
-// import candidates from "../mock_data/candidates";
+import React, { useEffect, useReducer } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Divider from '@material-ui/core/Divider'
+import CandidateAvatar from './CandidateAvatar'
+import CandidateDialog from './CandidateDialog'
+import mockApi from '../mock_data/mockApi'
 
 const styles = theme => ({
     root: {
@@ -20,65 +19,55 @@ const styles = theme => ({
     progress: {
         margin: theme.spacing.unit * 2
     }
-});
+})
 
 function reducer(state, action) {
     switch (action.type) {
         case 'setModalOpen':
-            return {...state, isModalOpen: action.isModalOpen};
-        case 'setCurrCandidateId':
-            return {...state, currentCandidateId: action.id};
+            return {...state, isModalOpen: action.isModalOpen}
         case 'setCandidates':
-            return {...state, candidates: action.candidates};
+            return {...state, candidates: action.candidates}
+        case 'setCurrCandidateId':
+            return {...state, currentCandidateId: action.id}
         case 'updateCandidateData':
-            // mockApi.updateCandidateData(state.currentCandidateId, action.data).then((result) => {
-            //     console.log(`Updated candidateData for id ${action.data.id} : `, result)
-            //     return state
-            // })
-            state.candidates[action.data.data.id - 1] = {...state.candidates[action.data.data.id - 1], ...action.data.data}
-            // console.log(action.data)
-            // changedCandidate = {...changedCandidate, ...action.data}
-            console.log("NEW STATE: ", state)
-            return state;
+            const newState = state
+            const currCandidateIndex = state.candidates.findIndex(x => x.id === state.currentCandidateId)
+            newState.candidates[currCandidateIndex] = {...newState.candidates[currCandidateIndex], ...action.data}
+            return newState
         default:
-            return state;
+            return state
     }
 }
 
 function ItemsList(props) {
-    const { classes } = props;
+    const { classes } = props
 
     const [state, dispatch] = useReducer(reducer, {
         isModalOpen: false,
         candidates: [],
         currentCandidateId: 0
-    });
+    })
 
-    useEffect(() => { //should trigger again after reducer updates
-        console.log("TRIGGERED ")
+    useEffect(() => {
+        console.log("783457843587")
+        fetchCandidates()
+    }, [])
+
+    const toggleOpenCandidateDialog = (shouldOpen, candidateId) => {
+        shouldOpen && dispatch({type: 'setCurrCandidateId', id: candidateId}) //I love naming functions openStuff and then also doing other stuff in it. Don't you??
+        dispatch({type: 'setModalOpen', isModalOpen: shouldOpen})
+     }
+
+    const fetchCandidates = () => {
         mockApi.fetchCandidates().then((candidates) => {
             dispatch({type: 'setCandidates', candidates})
         })
-    }, []); // [state && state.currentCandidateId]
-
-    const openCandidateDialog = (candidateId) => {
-        dispatch({type: 'setCurrCandidateId', id: candidateId})
-        dispatch({type: 'setModalOpen', isModalOpen: true})
-    }
-
-    const closeCandidateDialog = () => {
-        dispatch({type: 'setModalOpen', isModalOpen: false})
     }
 
     const updateCandidateData = (newData) => {
         dispatch({type: 'setModalOpen', isModalOpen: false})
         dispatch({type: 'updateCandidateData', data: newData})
-        mockApi.updateCandidates(state.candidates).then((result) => {
-            console.log(result)
-            mockApi.fetchCandidates().then((candidates) => {
-                dispatch({type: 'setCandidates', candidates})
-            })
-        })
+        mockApi.updateCandidates(state.candidates).then(fetchCandidates)
     }
 
     return (
@@ -86,43 +75,24 @@ function ItemsList(props) {
             {state.isModalOpen ?
                 <CandidateDialog
                     currentCandidateId={state.currentCandidateId}
-                    goBack={closeCandidateDialog}
+                    goBack={() => {toggleOpenCandidateDialog(false)}}
                     updateCandidateData={updateCandidateData}
                 /> :
-                <List component="nav">
+                <List component="nav" style={{padding: 0}}>
                     {!state.candidates.length?
                         <ListItem style={{justifyContent: "center"}}>
                             <CircularProgress className={classes.progress} />
                         </ListItem> :
-                        state.candidates.map((candidate) => {
-                            let { topType, accessoriesType, hairColor, facialHairType, facialHairColor, clotheType, clotheColor, eyeType, eyebrowType, mouthType, skinColor } = candidate.avatar
-                            return (
+                        state.candidates.map((candidate, i) => (
                                 <React.Fragment key={candidate.id}>
-                                    {candidate.id !== 1 && <Divider />}
+                                    {i && <Divider />}
                                     <ListItem>
-                                        <Avatar
-                                            style={{height: 60, width: 60}}
-                                            avatarStyle='Circle'
-                                            topType={topType}
-                                            accessoriesType={accessoriesType}
-                                            hairColor={hairColor}
-                                            facialHairType={facialHairType}
-                                            facialHairColor={facialHairColor || "Default"}
-                                            clotheType={clotheType}
-                                            clotheColor={clotheColor}
-                                            eyeType={eyeType}
-                                            eyebrowType={eyebrowType}
-                                            mouthType={mouthType}
-                                            skinColor={skinColor}
-                                        />
+                                        <CandidateAvatar data={{...candidate.avatar, height: 80, width: 80}}/>
                                         <ListItemText primary={candidate.name} />
-                                        {/*yeeeyyy making functions in render*/}
-                                        <button style={{cursor: "pointer"}} onClick={() => {openCandidateDialog(candidate.id)}}>Edit</button>
+                                        <button style={{cursor: "pointer"}} onClick={() => {toggleOpenCandidateDialog(true, candidate.id)}}>Edit</button>
                                     </ListItem>
-
                                 </React.Fragment>
-                            )
-                        })
+                            ))
                     }
                 </List>
             }
@@ -131,7 +101,7 @@ function ItemsList(props) {
 }
 
 ItemsList.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
+    classes: PropTypes.object.isRequired
+}
 
-export default withStyles(styles)(ItemsList);
+export default withStyles(styles)(ItemsList)

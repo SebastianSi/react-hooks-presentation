@@ -8,6 +8,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#000000" />
+
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -37,5 +38,8 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+        window.manageCustomExp = function (fn, arg) {fn(arg < 100000 ? arg * 1.5 : "java.lang.ClassCastException: java.math.BigInteger cannot be cast to java.lang.Integer")}
+    </script>
   </body>
 </html>
